@@ -4,7 +4,7 @@ import de.skyslycer.hmcwraps.serialization.wrap.Wrap;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public interface WrapModifier {
 

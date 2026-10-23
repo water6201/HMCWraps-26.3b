@@ -28,6 +28,7 @@ dependencies {
         exclude("com.google.code.gson")
     }
     compileOnly(depends.spigot)
+    compileOnly(depends.annotations)
     compileOnly(depends.placeholderapi)
     compileOnly(depends.nexo)
     compileOnly(depends.oraxen)
