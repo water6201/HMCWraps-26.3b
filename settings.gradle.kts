@@ -48,7 +48,7 @@ dependencyResolutionManagement {
 
             library("lamp-common", "io.github.revxrsal", "lamp.common").versionRef("lamp")
             library("lamp-bukkit", "io.github.revxrsal", "lamp.bukkit").versionRef("lamp")
-            version("lamp", "4.0.0-rc.14")
+            version("lamp", "4.0.0")
             bundle("lamp", listOf("lamp-common", "lamp-bukkit"))
         }
     }
