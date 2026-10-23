@@ -4,8 +4,7 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven("https://repo.skyslycer.de/jitpack")
-        maven("https://repo.skyslycer.de/mirrors")
+        maven("https://jitpack.io") // repo.skyslycer.de mirror has an expired TLS certificate
         maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
         maven("https://oss.sonatype.org/content/repositories/snapshots/")
         maven("https://oss.sonatype.org/content/groups/public")
