@@ -1,0 +1,7 @@
+.gradle
+.idea
+build
+api/build
+run
+bin
+api/bin

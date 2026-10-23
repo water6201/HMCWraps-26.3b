@@ -1,0 +1,34 @@
+name: Publish to Hibiscus Repository
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'dependabot') && !contains(github.event.head_commit.message, 'nopush')"
+    environment: build
+    runs-on: ubuntu-latest
+    env:
+      HAS_TOKEN: ${{ secrets.REPO_PASSWORD != '' }}
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Bypass Cloudflare for GitHub Action
+        uses: xiaotianxt/bypass-cloudflare-for-github-action@v1.1.1
+        with:
+          cf_zone_id: ${{ secrets.CF_ZONE_ID }}
+          cf_api_token: ${{ secrets.CF_API_TOKEN }}
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - name: Build with Gradle
+        run: ./gradlew api:clean api:build --no-daemon --stacktrace
+      - name: Publish to Nexus
+        if: ${{ env.HAS_TOKEN == 'true' }}
+        run: ./gradlew api:publishMavenPublicationToHibiscusMCRepository
+        env:
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}

@@ -1,0 +1,29 @@
+package de.skyslycer.hmcwraps.serialization.wrapping;
+
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+
+@ConfigSerializable
+public class WrappingSettings {
+
+    private RewrapSettings rewrap;
+    private boolean makeWrappersUnstackable;
+    private boolean giveWrapperAfterBreaking;
+    private boolean giveWrapperAfterDeath;
+
+    public RewrapSettings getRewrap() {
+        return rewrap;
+    }
+
+    public boolean isMakeWrappersUnstackable() {
+        return makeWrappersUnstackable;
+    }
+
+    public boolean isGiveWrapperAfterBreaking() {
+        return giveWrapperAfterBreaking;
+    }
+
+    public boolean isGiveWrapperAfterDeath() {
+        return giveWrapperAfterDeath;
+    }
+
+}
