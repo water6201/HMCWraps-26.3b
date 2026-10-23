@@ -8,18 +8,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Java 25
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 25
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Build
         run: |
           chmod +x ./gradlew
-          ./gradlew build --no-daemon --stacktrace
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee build.log
+      - name: Report build errors
+        if: failure()
+        run: |
+          {
+            grep -nE "error:|warning: \[removal\]|What went wrong|Could not|> Could|Caused by|FAILURE|e: " build.log | head -150 || true
+            echo "----- tail -----"
+            tail -60 build.log
+          } > errors.txt
+          {
+            echo '## Build errors'
+            echo '```'
+            cat errors.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          msg=$(sed -e 's/%/%25/g' errors.txt | awk '{printf "%s%%0A", $0}')
+          echo "::error title=Build log::${msg}"
       - name: Upload jar
         uses: actions/upload-artifact@v4
         with:
