@@ -9,7 +9,7 @@ group = "de.skyslycer.hmcwraps"
 version = rootProject.version
 
 dependencies {
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.2.0")
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:2.3.0")
     compileOnly(depends.spigot)
     compileOnly(depends.annotations)
     compileOnly(depends.placeholderapi)
